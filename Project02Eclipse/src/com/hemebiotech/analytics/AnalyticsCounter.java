@@ -1,7 +1,10 @@
 package com.hemebiotech.analytics;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class AnalyticsCounter {
 	/**
@@ -12,14 +15,16 @@ public class AnalyticsCounter {
 	 */
 	private String filePatch;
 	/**
-   	 * Initialization of the list which will store the data of the read file
+	 * Initialization of the list which will store the data of the read file
 	 * 
 	 * @see ISymptomReader
 	 */
 	private List<String> symptomsList;
+	private Map<String, Integer> symptomsMap = new HashMap<String, Integer>();
 
 	/**
-	 * An implementation that groups together the functions that will be executed by the program
+	 * An implementation that groups together the functions that will be executed by
+	 * the program
 	 * 
 	 * @param filePatch It is the source file that is to be analyzed
 	 * 
@@ -46,9 +51,30 @@ public class AnalyticsCounter {
 		symptomsList = readSymptomDataFromFile.GetSymptoms();
 	}
 
+	/**
+	 * method which analyzes the file while counting the occurrences of the data
+	 * read. It stores them in a collection (k, v), providing a result as follows:
+	 * <br/>
+	 * symptom = occurrence
+	 * 
+	 */
 	private void counting() {
-		// TODO Auto-generated method stub
 
+		Iterator<String> iterator = symptomsList.iterator();
+
+		System.out.println("Symptoms data from file :");
+
+		while (iterator.hasNext()) {
+			String symptom = iterator.next();
+
+			if (symptomsMap != null && symptomsMap .containsKey(symptom)) {
+				symptomsMap.put(symptom, (symptomsMap.get(symptom) + 1));
+			}
+
+			else {
+				symptomsMap.put(symptom, 1);
+			}
+		}
 	}
 
 	private void sorting() {
