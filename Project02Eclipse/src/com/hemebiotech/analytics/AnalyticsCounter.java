@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
 	/**
@@ -20,7 +22,16 @@ public class AnalyticsCounter {
 	 * @see ISymptomReader
 	 */
 	private List<String> symptomsList;
+	/**
+	 * 
+	 * The collection which contains the list of data and their occurrences after counting
+	 * 
+	 */
 	private Map<String, Integer> symptomsMap = new HashMap<String, Integer>();
+	/**
+	 * The collection which will contain the list of data and their occurrences counted and sorted in alphabetical order
+	 */
+	private Map<String, Integer> symptomsTreeMap;
 
 	/**
 	 * An implementation that groups together the functions that will be executed by
@@ -67,7 +78,7 @@ public class AnalyticsCounter {
 		while (iterator.hasNext()) {
 			String symptom = iterator.next();
 
-			if (symptomsMap != null && symptomsMap .containsKey(symptom)) {
+			if (symptomsMap != null && symptomsMap.containsKey(symptom)) {
 				symptomsMap.put(symptom, (symptomsMap.get(symptom) + 1));
 			}
 
@@ -77,9 +88,22 @@ public class AnalyticsCounter {
 		}
 	}
 
+	/**
+	 * Sorting method of data collected after counting
+	 */
 	private void sorting() {
-		// TODO Auto-generated method stub
 
+		symptomsTreeMap = new TreeMap<String, Integer>(symptomsMap);
+		Set set = symptomsTreeMap.entrySet();
+		Iterator symptomsTriIterator = set.iterator();
+
+		while (symptomsTriIterator.hasNext()) {
+
+			Map.Entry mapEntry = (Map.Entry) symptomsTriIterator.next();
+
+			System.out.print(mapEntry.getKey() + " = ");
+			System.out.println(mapEntry.getValue());
+		}
 	}
 
 	private void writing() {
