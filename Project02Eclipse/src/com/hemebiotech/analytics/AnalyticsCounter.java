@@ -106,9 +106,17 @@ public class AnalyticsCounter {
 		}
 	}
 
+	/**
+	 * Writing method of collected data
+	 * 
+	 * @see WriteSymptomDataFromFile
+	 * @see ISymptomWriter
+	 */
 	private void writing() {
-		// TODO Auto-generated method stub
 
+		WriteSymptomDataFromFile writeSymptomDataFromFile = new WriteSymptomDataFromFile(symptomsTreeMap);
+		writeSymptomDataFromFile.symptomsSaver();
+		
 	}
 
 }
